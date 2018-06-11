@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script>
+        const mergeSort = (arr) => {
+            if (arr.length === 1) {
+                return arr;
+            }
+            let m = Math.floor(arr.length / 2),
+                lA = arr.slice(0, m),
+                rA = arr.slice(m),
+                l = mergeSort(lA),
+                r = mergeSort(rA),
+                merge = (lA, rA) => {
+                    let lI = 0, rI = 0, res = [];
+
+                    while (lI < lA.length && rI < rA.length) {
+                        if (lA[lI] <= rA[rI]) {
+                            res.push(lA[lI]);
+                            lI += 1;
+                        }
+                        if (lA[lI] > rA[rI]) {
+                            res.push(rA[rI]);
+                            rI += 1;
+                        }
+                    }
+                    return res.concat(lA.slice(lI)).concat(rA.slice(rI));
+                };
+            return merge(l, r);
+        }
+
+        let a = [6, 3, 8, 5, 6, 9, 2];
+        console.log(mergeSort(a));
+        console.log(a);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

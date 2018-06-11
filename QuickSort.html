@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+
+   <script>
+        const quicksort = (arr) => {
+            const qs = (arr, lI, rI) => {
+                if (lI >= rI) {
+                    return;
+                }
+                let i = partition(arr, lI, rI, arr[Math.floor((lI + rI) / 2)]);
+                qs(arr, lI, i - 1);
+                qs(arr, i, rI);
+
+                return arr;
+            },
+            partition = (arr, lI, rI, pivot) => {
+                while (lI <= rI) {
+                    while (arr[lI] < pivot) {
+                        lI += 1;
+                    }
+
+                    while (pivot < arr[rI]) {
+                        rI -= 1;
+                    }
+
+                    if (lI <= rI) {
+                        let temp = arr[lI];
+                        arr[lI] = arr[rI];
+                        arr[rI] = temp;
+                        lI += 1;
+                        rI -= 1;
+                    }
+                }
+
+                return lI;
+            };
+
+            return qs(arr.slice(), 0, arr.length - 1);
+        };
+
+        let a = [6,3,8,5,6,9,2];
+        console.log(quicksort(a));
+        console.log(a);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
