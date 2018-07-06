@@ -14,19 +14,16 @@
                 l = mergeSort(lA),
                 r = mergeSort(rA),
                 merge = (lA, rA) => {
-                    let lI = 0, rI = 0, res = [];
-
-                    while (lI < lA.length && rI < rA.length) {
-                        if (lA[lI] <= rA[rI]) {
-                            res.push(lA[lI]);
-                            lI += 1;
+                    let res = [];
+                    while (lA.length && rA.length) {
+                        if (lA[0] <= rA[0]) {
+                            res.push(lA.shift());
                         }
-                        if (lA[lI] > rA[rI]) {
-                            res.push(rA[rI]);
-                            rI += 1;
+                        if (lA[0] > rA[0]) {
+                            res.push(rA.shift());
                         }
                     }
-                    return res.concat(lA.slice(lI)).concat(rA.slice(rI));
+                    return [...res,...lA, ...rA];
                 };
             return merge(l, r);
         }

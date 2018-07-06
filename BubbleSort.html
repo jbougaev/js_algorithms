@@ -4,7 +4,7 @@
     <title></title>
     <meta charset="utf-8" />
     <script>
-        var naiveBubbleSort = (arr) => {
+        const naiveBubbleSort = (arr) => {
             const bs = (arr) => {
                 for (let m = 0; m < arr.length; m++) {
                     for (let n = 0; n < arr.length; n++) {
@@ -15,7 +15,26 @@
                         }
                     }
                 }
+                return arr;
+            }
 
+            return bs(arr.slice());
+        }
+
+        const betterBubbleSort = (arr) => {
+            const bs = (arr) => {
+                let swapped;
+                do {
+                    swapped = false;
+                    for (let n = 0; n < arr.length; n++) {
+                        if (arr[n + 1] && arr[n] > arr[n + 1]) {
+                            let temp = arr[n];
+                            arr[n] = arr[n + 1];
+                            arr[n + 1] = temp;
+                            swapped = true;
+                        }
+                    }
+                } while (swapped);
                 return arr;
             }
 
@@ -24,6 +43,7 @@
 
         let a = [6, 3, 8, 5, 6, 9, 2];
         console.log(naiveBubbleSort(a));
+        console.log(betterBubbleSort(a));
         console.log(a);
     </script>
 </head>
