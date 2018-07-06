@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
 
    <script>
-        const quicksort = (arr) => {
+        const quicksort3 = (arr) => {
             const qs = (arr, lI, rI) => {
                 if (lI >= rI) {
                     return;
@@ -41,9 +41,30 @@
             return qs(arr.slice(), 0, arr.length - 1);
         };
 
-        let a = [6,3,8,5,6,9,2];
-        console.log(quicksort(a));
-        console.log(a);
+        const quicksort = (nums) => {
+            if (nums.length <= 1) {
+                return nums;
+            }
+
+            const pivot = nums[nums.length - 1];
+            let left = [],
+                right = [];
+
+            for (let i = 0; i < nums.length-1; i++) {
+                if (nums[i] < pivot) {
+                    left.push(nums[i]);
+                } else {
+                    right.push(nums[i]);
+                }
+            }
+
+            return [...quicksort(left), pivot, ...quicksort(right)];
+        }
+
+       let a = [6,3,8,5,6,9,2];
+       console.log(quicksort(a));
+       console.log(quicksort3(a));
+       console.log(a);
 
     </script>
 </head>
