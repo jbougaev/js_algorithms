@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anatomy of Observable</title>
+    <meta charset="utf-8" />
+
+</head>
+<body>
+    <button id="test">Click</button>
+    <script>
+            function timeout(time) {
+                return {
+                    forEach: function (observer) {
+                        var handler = setTimeout(() => { 
+                            observer.onNext(); 
+                            observer.onCompleted(); 
+                            }, time);
+                        return {
+                            dispose: function () {
+                                clearTimeout(handler);
+                            }
+                        };
+                    }
+                }
+            }
+    
+            timeout(1000).forEach({onNext: x=>console.log("Next"), onError: null, onCompleted: x=> console.log("Completed")});
+    
+            function fromEvent(dom, eventName) {
+                return {
+                    forEach: function (observer) {
+                        let handler = (e) => { 
+                            observer.onNext(e); 
+                            };
+                       dom.addEventListener(eventName, handler);
+                        return {
+                            dispose: function () {
+                                dom.removeEventListener(eventName, handler);
+                            }
+                        };
+                    }
+                }
+            }
+    
+            fromEvent(document.getElementById("test"), "click").forEach({onNext: x=>console.log(x)});
+
+
+
+    
+        </script>
+</body>
+</html>

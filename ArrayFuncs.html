@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script>
+        Array.prototype.map = function (func) {
+            let result = [];
+            this.forEach(function (item) {
+                result.push(func(item));
+            });
+            return result;
+        };
+
+        Array.prototype.filter = function (predicate) {
+            let result = [];
+            this.forEach(function (item) {
+                if (predicate(item)) {
+                    result.push(item);
+                }
+            });
+            return result;
+        };
+
+        Array.prototype.concatAll = function () {
+            let result = [];
+            this.forEach((inner) => {
+                inner.forEach((i) => {
+                    result.push(i);
+                });
+            });
+            return result;
+        };
+
+        Array.prototype.concatMap = function (func) {
+            return this
+                .map(function (item) {
+                    return func(item);
+                })
+                .concatAll();
+        };
+
+        Array.prototype.reduce = function (combiner, initialValue) {
+            var counter,
+                accumulatedValue;
+
+            if (this.length === 0) {
+                return this;
+            }
+            else {
+                if (arguments.length === 1) {
+                    counter = 1;
+                    accumulatedValue = this[0];
+                }
+                else if (arguments.length >= 2) {
+                    counter = 0;
+                    accumulatedValue = initialValue;
+                }
+                else {
+                    throw "Invalid arguments.";
+                }
+                while (counter < this.length) {
+                    accumulatedValue = combiner(accumulatedValue, this[counter])
+                    counter++;
+                }
+
+                return [accumulatedValue];
+            }
+        };
+
+        Array.zip = function (left, right, combinerF) {
+            let counter,
+                result = [];
+
+            for (counter = 0; counter < Math.min(left.length, right.length); counter++) {
+                result.push(combinerF(left[counter], right[counter]));
+            }
+
+            return result;
+        };
+
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
